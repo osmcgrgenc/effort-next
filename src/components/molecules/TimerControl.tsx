@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Timer } from '../atoms/Timer';
 import { Button } from '../atoms/Button';
