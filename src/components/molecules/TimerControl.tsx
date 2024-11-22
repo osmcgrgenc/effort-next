@@ -7,6 +7,7 @@ import { Select } from '../atoms/Select';
 import { Input } from '../atoms/Input';
 import { useEffortStore } from '@/store/effortStore';
 import { PROJECTS } from '@/constants/projects';
+import toast from 'react-hot-toast';
 
 interface TimerControlProps {
   timer: {
@@ -54,6 +55,9 @@ export const TimerControl: React.FC<TimerControlProps> = ({ timer }) => {
   const handleComplete = () => {
     if (timer.duration > 0) {
       completeTimer(timer.id);
+      resetTimer(timer.id);
+      
+      toast.success('Efor kaydedildi ve timer sıfırlandı');
     }
   };
 
@@ -62,7 +66,7 @@ export const TimerControl: React.FC<TimerControlProps> = ({ timer }) => {
       {timer.id !== '1' && (
         <button
           onClick={() => removeTimer(timer.id)}
-          className="absolute top-4 right-4 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-4 right-4 text-gray-400 hover:text-red-500 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -123,7 +127,7 @@ export const TimerControl: React.FC<TimerControlProps> = ({ timer }) => {
       )}
 
       {!showProjectForm && (
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           {!timer.isRunning ? (
             <>
               <Button
