@@ -26,11 +26,12 @@ export const EffortTable: React.FC = () => {
     // Sütun genişliklerini ayarla
     const maxWidth = excelData.reduce((acc, row) => {
       Object.keys(row).forEach(key => {
-        const length = row[key]?.toString().length || 0;
+        const value = row[key as keyof typeof row];
+        const length = value?.toString().length || 0;
         acc[key] = Math.max(acc[key] || 0, length);
       });
       return acc;
-    }, {});
+    }, {} as Record<string, number>);
 
     worksheet['!cols'] = Object.keys(maxWidth).map(key => ({
       wch: Math.min(Math.max(maxWidth[key], key.length), 50)
